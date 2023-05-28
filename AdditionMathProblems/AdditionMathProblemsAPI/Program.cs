@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using AdditionMathProblemsAPI;
+using Microsoft.AspNetCore.Cors;
 
 // Configure app
 var builder = WebApplication.CreateBuilder(args);
@@ -21,12 +22,24 @@ builder.Services.AddSwaggerGen(c =>
 });
 var app = builder.Build();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 app.UseSwagger();
 
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
 });
+
+app.UseCors();
 
 // Define prediction route & handler
 app.MapPost("/predict",
