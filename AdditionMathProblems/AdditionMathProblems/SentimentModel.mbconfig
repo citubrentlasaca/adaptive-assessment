@@ -1,0 +1,199 @@
+﻿{
+  "TrainingTime": 10,
+  "Scenario": "Classification",
+  "DataSource": {
+    "Type": "TabularFile",
+    "Version": 1,
+    "FilePath": "C:\\Users\\User\\Documents\\School\\3rd Year 2nd Semester\\CS392 Research Methods\\Week 19 (May 28, 2023)\\2 + 3,true,5,Easy,Medium.csv",
+    "Delimiter": ",",
+    "DecimalMarker": ".",
+    "HasHeader": true,
+    "ColumnProperties": [
+      {
+        "ColumnName": "Problem",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 2
+      },
+      {
+        "ColumnName": "Correct/Incorrect Answer",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Boolean",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 2
+      },
+      {
+        "ColumnName": "Time (seconds)",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 2
+      },
+      {
+        "ColumnName": "Current Difficulty",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 2
+      },
+      {
+        "ColumnName": "Next Difficulty",
+        "ColumnPurpose": "Label",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 2
+      }
+    ]
+  },
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "RunHistory": {
+    "Version": 1,
+    "Type": "Result",
+    "Trials": [
+      {
+        "Version": 0,
+        "Type": "Trial",
+        "TrainerName": "SdcaMaximumEntropyMulti",
+        "Score": 0.48759557967492306,
+        "RuntimeInSeconds": 1.0240000486373901
+      },
+      {
+        "Version": 0,
+        "Type": "Trial",
+        "TrainerName": "LbfgsLogisticRegressionOva",
+        "Score": 0.46718288627317356,
+        "RuntimeInSeconds": 0.57899999618530273
+      },
+      {
+        "Version": 0,
+        "Type": "Trial",
+        "TrainerName": "SdcaLogisticRegressionOva",
+        "Score": 0.48759557967492306,
+        "RuntimeInSeconds": 1.1050000190734863
+      },
+      {
+        "Version": 0,
+        "Type": "Trial",
+        "TrainerName": "FastForestOva",
+        "Score": 0.45233400814112174,
+        "RuntimeInSeconds": 1.7680000066757202
+      },
+      {
+        "Version": 0,
+        "Type": "Trial",
+        "TrainerName": "FastTreeOva",
+        "Score": 0.50114131042995613,
+        "RuntimeInSeconds": 1.4309999942779541
+      },
+      {
+        "Version": 0,
+        "Type": "Trial",
+        "TrainerName": "LightGbmMulti",
+        "Score": 0.50032698947199639,
+        "RuntimeInSeconds": 0.46700000762939453
+      },
+      {
+        "Version": 0,
+        "Type": "Trial",
+        "TrainerName": "LbfgsMaximumEntropyMulti",
+        "Score": 0.47431963840992564,
+        "RuntimeInSeconds": 0.34000000357627869
+      },
+      {
+        "Version": 0,
+        "Type": "Trial",
+        "TrainerName": "SdcaMaximumEntropyMulti",
+        "Score": 0.46533264349269821,
+        "RuntimeInSeconds": 0.41499999165534973
+      },
+      {
+        "Version": 0,
+        "Type": "Trial",
+        "TrainerName": "LbfgsLogisticRegressionOva",
+        "Score": 0.47038363824957541,
+        "RuntimeInSeconds": 0.5130000114440918
+      },
+      {
+        "Version": 0,
+        "Type": "Trial",
+        "TrainerName": "LbfgsMaximumEntropyMulti",
+        "Score": 0.48894530382218482,
+        "RuntimeInSeconds": 0.2460000067949295
+      }
+    ],
+    "Pipeline": {
+      "parameter": {
+        "0": {
+          "OutputColumnNames": [
+            "Correct/Incorrect Answer",
+            "Current Difficulty"
+          ],
+          "InputColumnNames": [
+            "Correct/Incorrect Answer",
+            "Current Difficulty"
+          ]
+        },
+        "1": {
+          "OutputColumnNames": [
+            "Time (seconds)"
+          ],
+          "InputColumnNames": [
+            "Time (seconds)"
+          ]
+        },
+        "2": {
+          "InputColumnName": "Problem",
+          "OutputColumnName": "Problem"
+        },
+        "3": {
+          "InputColumnNames": [
+            "Correct/Incorrect Answer",
+            "Current Difficulty",
+            "Time (seconds)",
+            "Problem"
+          ],
+          "OutputColumnName": "Features"
+        },
+        "4": {
+          "OutputColumnName": "Next Difficulty",
+          "InputColumnName": "Next Difficulty"
+        },
+        "5": {
+          "NumberOfLeaves": 4,
+          "MinimumExampleCountPerLeaf": 20,
+          "NumberOfTrees": 4,
+          "MaximumBinCountPerFeature": 255,
+          "FeatureFraction": 1.0,
+          "LearningRate": 0.099999999999999978,
+          "LabelColumnName": "Next Difficulty",
+          "FeatureColumnName": "Features"
+        },
+        "6": {
+          "OutputColumnName": "PredictedLabel",
+          "InputColumnName": "PredictedLabel"
+        }
+      },
+      "estimators": [
+        "OneHotEncoding",
+        "ReplaceMissingValues",
+        "FeaturizeText",
+        "Concatenate",
+        "MapValueToKey",
+        "FastTreeOva",
+        "MapKeyToValue"
+      ]
+    },
+    "MetricName": "MicroAccuracy"
+  },
+  "Type": "TrainingConfig",
+  "Version": 2
+}
