@@ -13,9 +13,6 @@ public partial class SentimentModel
     #region model input class
     public class ModelInput
     {
-        [ColumnName(@"Problem")]
-        public string Problem { get; set; }
-
         [ColumnName(@"Correct/Incorrect Answer")]
         public bool Correct_Incorrect_Answer { get; set; }
 
@@ -38,9 +35,6 @@ public partial class SentimentModel
     #region model output class
     public class ModelOutput
     {
-        [ColumnName(@"Problem")]
-        public float[] Problem { get; set; }
-
         [ColumnName(@"Correct/Incorrect Answer")]
         public float[] Correct_Incorrect_Answer { get; set; }
 

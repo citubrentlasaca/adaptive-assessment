@@ -38,10 +38,9 @@ namespace AdditionMathProblemsAPI
             // Data process configuration with pipeline data transformations
             var pipeline = mlContext.Transforms.Categorical.OneHotEncoding(new []{new InputOutputColumnPair(@"Correct/Incorrect Answer", @"Correct/Incorrect Answer"),new InputOutputColumnPair(@"Current Difficulty", @"Current Difficulty")}, outputKind: OneHotEncodingEstimator.OutputKind.Indicator)      
                                     .Append(mlContext.Transforms.ReplaceMissingValues(@"Time (seconds)", @"Time (seconds)"))      
-                                    .Append(mlContext.Transforms.Text.FeaturizeText(inputColumnName:@"Problem",outputColumnName:@"Problem"))      
-                                    .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"Correct/Incorrect Answer",@"Current Difficulty",@"Time (seconds)",@"Problem"}))      
+                                    .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"Correct/Incorrect Answer",@"Current Difficulty",@"Time (seconds)"}))      
                                     .Append(mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"Next Difficulty",inputColumnName:@"Next Difficulty"))      
-                                    .Append(mlContext.MulticlassClassification.Trainers.OneVersusAll(binaryEstimator:mlContext.BinaryClassification.Trainers.FastTree(new FastTreeBinaryTrainer.Options(){NumberOfLeaves=4,MinimumExampleCountPerLeaf=20,NumberOfTrees=4,MaximumBinCountPerFeature=255,FeatureFraction=1,LearningRate=0.1,LabelColumnName=@"Next Difficulty",FeatureColumnName=@"Features"}),labelColumnName: @"Next Difficulty"))      
+                                    .Append(mlContext.MulticlassClassification.Trainers.OneVersusAll(binaryEstimator:mlContext.BinaryClassification.Trainers.FastForest(new FastForestBinaryTrainer.Options(){NumberOfTrees=4,NumberOfLeaves=4,FeatureFraction=1F,LabelColumnName=@"Next Difficulty",FeatureColumnName=@"Features"}),labelColumnName:@"Next Difficulty"))      
                                     .Append(mlContext.Transforms.Conversion.MapKeyToValue(outputColumnName:@"PredictedLabel",inputColumnName:@"PredictedLabel"));
 
             return pipeline;
