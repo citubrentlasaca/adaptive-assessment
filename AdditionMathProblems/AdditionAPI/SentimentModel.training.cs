@@ -9,7 +9,7 @@ using Microsoft.ML.Trainers;
 using Microsoft.ML.Transforms;
 using Microsoft.ML;
 
-namespace AdditionMathProblems
+namespace AdditionAPI
 {
     public partial class SentimentModel
     {
